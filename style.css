@@ -1,0 +1,46 @@
+:root {
+    --bg:        #1b2d4f;
+    --bg-dark:   #152540;
+    --card:      #1e3358;
+    --card-2:    #243d68;
+    --border:    rgba(255,255,255,0.08);
+    --text:      #ffffff;
+    --dim:       rgba(255,255,255,0.55);
+    --orange:    #ff9f43;
+    --blue:      #54a0ff;
+    --teal:      #1dd1a1;
+    --r:         18px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 22px 18px 40px;
+    overflow-x: hidden;
+}
+
+.bg-layer {
+    position: fixed; inset: 0; z-index: 0;
+    pointer-events: none; overflow: hidden;
+    background:
+        radial-gradient(ellipse at 10% 10%, rgba(84,160,255,0.1) 0%, transparent 55%),
+        radial-gradient(ellipse at 90% 85%, rgba(29,209,161,0.07) 0%, transparent 50%),
+        linear-gradient(180deg, #152540 0%, #0f1d33 100%);
+}
+
+.particles { position: absolute; inset: 0; }
+.particle {
+    position: absolute; border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    animation: particleRise linear infinite;
+}
+@keyframes particleRise {
+    0%   { transform: translateY(0); opacity: 0; }
+    10%  { opacity: 0.4; }
+    90%  { opacity: 0.15; }
+    100% { transform: translateY(-100vh); opacity: 0; }
+}
