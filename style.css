@@ -70,3 +70,26 @@ body {
 
 .header-right { display: flex; align-items: center; gap: 10px; }
 
+.live-badge {
+    display: flex; align-items: center; gap: 7px;
+    background: rgba(29,209,161,0.12);
+    border: 1px solid rgba(29,209,161,0.28);
+    border-radius: 100px;
+    padding: 5px 13px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; font-weight: 500;
+    color: var(--teal); letter-spacing: 0.1em;
+}
+
+.pulse-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 0 rgba(29,209,161,0.6);
+    animation: livePulse 2s ease infinite;
+}
+@keyframes livePulse {
+    0%   { box-shadow: 0 0 0 0 rgba(29,209,161,0.6); }
+    70%  { box-shadow: 0 0 0 7px rgba(29,209,161,0); }
+    100% { box-shadow: 0 0 0 0 rgba(29,209,161,0); }
+}
+
