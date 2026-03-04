@@ -51,3 +51,22 @@ body {
     position: relative; z-index: 1;
 }
 
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    animation: slideDown 0.55s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+.location-label {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 1rem; font-weight: 700;
+    color: var(--text); cursor: pointer;
+    transition: opacity 0.2s;
+}
+.location-label:hover { opacity: 0.8; }
+.loc-icon { color: var(--blue); flex-shrink: 0; }
+
+.header-right { display: flex; align-items: center; gap: 10px; }
+
