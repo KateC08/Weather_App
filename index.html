@@ -4,18 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Application</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <div>
-    <h2>Temperature:</h2>
-    <p id="temperature">Loading...</p>
-  </div>
-
-  <div>
-    <h2>Humidity:</h2>
-    <p id="humidity">Loading...</p>
+  <div class="dashboard-container">
+    <header class="main-header">
+        <div class="location-label">
+            <svg class="loc-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            <span>Tankulan, Manolo Fortich, PH</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.45"><path d="M7 10l5 5 5-5z"/></svg>
+        </div>
+        <div class="header-right">
+            <div class="live-badge">
+                <span class="pulse-dot"></span>
+                LIVE
+            </div>
+            <div class="time-display" id="clock">--:--:-- --</div>
+        </div>
+    </header>
   </div>
 
   <script src="script.js"></script>
