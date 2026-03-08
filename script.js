@@ -24,3 +24,4 @@ async function fetchWeather() {
 
 }
 fetchWeather();
+setInterval(fetchWeather, 5000);
