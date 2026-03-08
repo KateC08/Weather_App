@@ -10,4 +10,9 @@ async function fetchWeather() {
         .select('*')
         .order('created_at', { ascending: false })
         .limit(1);
+
+    if (error) {
+    console.log("ERROR:", error);
+    return;
+  }
 }
