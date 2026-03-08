@@ -17,4 +17,9 @@ async function fetchWeather() {
     }
     console.log("DATA:", data);
 
+    if (data.length > 0) {
+       document.getElementById("temperature").innerText = data[0].temperature + " °C";
+       document.getElementById("humidity").innerText = data[0].humidity + " %";
+    }
+    
 }
