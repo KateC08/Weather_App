@@ -21,5 +21,6 @@ async function fetchWeather() {
        document.getElementById("temperature").innerText = data[0].temperature + " °C";
        document.getElementById("humidity").innerText = data[0].humidity + " %";
     }
-    
+
 }
+fetchWeather();
