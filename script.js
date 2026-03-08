@@ -4,4 +4,10 @@ const supabaseKey = "sb_publishable_H5IRLcvWEIFWWFC1pUI2fw_lmDJD9V_";
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 async function fetchWeather() {
+
+    const { data, error } = await supabaseClient
+        .from('weather_data')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(1);
 }
