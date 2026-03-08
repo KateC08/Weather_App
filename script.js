@@ -12,7 +12,9 @@ async function fetchWeather() {
         .limit(1);
 
     if (error) {
-    console.log("ERROR:", error);
-    return;
-  }
+        console.log("ERROR:", error);
+        return;
+    }
+    console.log("DATA:", data);
+
 }
