@@ -15,7 +15,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+    font-family: Verdana;
     background: var(--bg-dark);
     color: var(--text);
     min-height: 100vh;
