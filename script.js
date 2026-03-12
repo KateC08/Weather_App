@@ -25,3 +25,8 @@ async function fetchWeather() {
 }
 fetchWeather();
 setInterval(fetchWeather, 5000);
+
+//  Clock
+function tickClock() {
+    
+}
