@@ -30,3 +30,4 @@ setInterval(fetchWeather, 5000);
 function tickClock() {
     document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-PH', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
 }
+setInterval(tickClock, 1000); tickClock();
