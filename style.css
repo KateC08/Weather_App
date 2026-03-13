@@ -140,3 +140,9 @@ body {
     letter-spacing: 0.1em;
     margin-bottom: 20px;
 }
+
+.weather-icon-wrap {
+    position: absolute;
+    top: 22px; right: 26px;
+    width: 72px; height: 72px;
+}
