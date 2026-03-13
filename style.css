@@ -104,3 +104,5 @@ body {
     letter-spacing: 0.02em;
 }
 
+.grid-layout { display: flex; flex-direction: column; gap: 14px; }
+
