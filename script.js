@@ -32,3 +32,17 @@ function tickClock() {
 }
 setInterval(tickClock, 1000); 
 tickClock();
+
+// Particles
+(function() {
+    const c = document.getElementById('particles');
+    for (let i = 0; i < 14; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;
+            width:${1.5+Math.random()*2.5}px;height:${1.5+Math.random()*2.5}px;
+            animation-delay:${Math.random()*10}s;animation-duration:${8+Math.random()*8}s;`;
+        c.appendChild(p);
+    }
+})();
+ 
