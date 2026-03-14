@@ -58,3 +58,7 @@ function calcDewPoint(T, H) {
     const a=17.625, b=243.04, al=Math.log(H/100)+a*T/(b+T);
     return +(b*al/(a-al)).toFixed(1);
 }
+function calcAbsHumidity(T, H) {
+    const es=6.112*Math.exp((17.67*T)/(T+243.5)), e=(H/100)*es;
+    return +((216.7*e)/(273.15+T)).toFixed(2);
+}
