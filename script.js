@@ -67,3 +67,13 @@ function getMold(H, T) {
     if (H>=70&&T>=18) return {label:'Moderate', color:'#fbbf24'};
     return {label:'Low', color:'#4ade80'};
 }
+function getCondition(T, H) {
+    if (T<20&&H<40) return {text:'Cool & Dry', badge:'😌 Comfortable'};
+    if (T<20&&H>=70) return {text:'Cool & Humid', badge:'🌫️ Damp'};
+    if (T<26&&H<60) return {text:'Comfortable', badge:'✅ Pleasant'};
+    if (T>=32&&H>=80) return {text:'Hot & Very Humid', badge:'🥵 Extreme'};
+    if (T>=26&&H>=60) return {text:'Warm & Humid', badge:'😓 Muggy'};
+    if (T>=32) return {text:'Very Hot', badge:'🔥 Hot'};
+    return {text:'Warm', badge:'🌤 Fair'};
+}
+ 
