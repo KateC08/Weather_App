@@ -54,3 +54,7 @@ function calcHeatIndex(T, H) {
         + 0.002211732*T*T*H + 0.00072546*T*H*H
         - 0.000003582*T*T*H*H).toFixed(1);
 }
+function calcDewPoint(T, H) {
+    const a=17.625, b=243.04, al=Math.log(H/100)+a*T/(b+T);
+    return +(b*al/(a-al)).toFixed(1);
+}
