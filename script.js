@@ -46,3 +46,11 @@ tickClock();
     }
 })();
  
+// Physics
+function calcHeatIndex(T, H) {
+    if (T < 27) return T;
+    return +(-8.78469475556 + 1.61139411*T + 2.33854883889*H
+        - 0.14611605*T*H - 0.012308094*T*T - 0.0164248277778*H*H
+        + 0.002211732*T*T*H + 0.00072546*T*H*H
+        - 0.000003582*T*T*H*H).toFixed(1);
+}
