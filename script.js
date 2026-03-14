@@ -62,3 +62,8 @@ function calcAbsHumidity(T, H) {
     const es=6.112*Math.exp((17.67*T)/(T+243.5)), e=(H/100)*es;
     return +((216.7*e)/(273.15+T)).toFixed(2);
 }
+function getMold(H, T) {
+    if (H>=80&&T>=20) return {label:'High', color:'#f87171'};
+    if (H>=70&&T>=18) return {label:'Moderate', color:'#fbbf24'};
+    return {label:'Low', color:'#4ade80'};
+}
