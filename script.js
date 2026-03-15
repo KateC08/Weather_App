@@ -77,3 +77,27 @@ function getCondition(T, H) {
     return {text:'Warm', badge:'🌤 Fair'};
 }
  
+window.updateDerived = function(T, H) {
+    const hi = calcHeatIndex(T, H);
+    const dp = calcDewPoint(T, H);
+    const ah = calcAbsHumidity(T, H);
+    const mold = getMold(H, T);
+    const cond = getCondition(T, H);
+    document.getElementById('m-hi').textContent = hi + '°C';
+    document.getElementById('m-dp').textContent = dp + '°C';
+    document.getElementById('m-ah').textContent = ah + ' g/m³';
+    document.getElementById('m-mold').textContent = mold.label;
+    document.getElementById('m-mold').style.color = mold.color;
+    document.getElementById('feelsLike').textContent = hi + '°C';
+    document.getElementById('dewPoint').textContent = dp + '°C';
+    document.getElementById('conditionText').textContent = cond.text;
+    document.getElementById('conditionBadge').textContent = cond.badge;
+    document.getElementById('humBar').style.width = H + '%';
+    document.getElementById('humBarPct').textContent = H + '%';
+    document.getElementById('infoText').textContent =
+        H >= 80 ? `Very high humidity (${H}%). Significant moisture — feels like ${hi}°C. Consider ventilation.`
+        : H >= 60 ? `Moderate to high humidity at ${H}%. Perceived temperature is ${hi}°C due to moisture in the air.`
+        : `Comfortable humidity at ${H}%. Dew point is ${dp}°C. Conditions are relatively pleasant.`;
+};
+ 
+
