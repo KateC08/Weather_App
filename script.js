@@ -100,4 +100,5 @@ window.updateDerived = function(T, H) {
         : `Comfortable humidity at ${H}%. Dew point is ${dp}°C. Conditions are relatively pleasant.`;
 };
  
+updateDerived(33.9, 72.1);
 
