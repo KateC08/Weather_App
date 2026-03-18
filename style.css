@@ -274,3 +274,42 @@ body {
 .sep-line { width:1px; height:32px; background:rgba(255,255,255,0.1); }
 .sep-dot  { width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,0.18); }
 
+.condition-area { text-align: center; }
+
+.condition-row {
+    display: flex; justify-content: center; align-items: center;
+    gap: 10px; flex-wrap: wrap; margin-bottom: 6px;
+}
+
+.condition-label {
+    font-size: 1.55rem; font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.condition-badge {
+    background: rgba(255,159,67,0.13);
+    border: 1px solid rgba(255,159,67,0.28);
+    color: var(--orange);
+    font-size: 0.72rem; font-weight: 700;
+    padding: 4px 12px; border-radius: 100px;
+    white-space: nowrap;
+}
+
+.feels-line {
+    font-size: 0.9rem; color: var(--dim);
+    margin: 6px 0 14px;
+}
+.feels-line strong { color: var(--text); }
+
+.info-box {
+    display: inline-flex; align-items: flex-start; gap: 9px;
+    background: rgba(52,152,219,0.08);
+    border-left: 3px solid #3498db;
+    padding: 12px 16px;
+    border-radius: 0 10px 10px 0;
+    color: var(--dim);
+    font-size: 0.86rem; line-height: 1.6;
+    text-align: left;
+    max-width: 560px;
+}
+.info-icon { flex-shrink:0; margin-top:1px; }
