@@ -146,3 +146,38 @@ body {
     top: 22px; right: 26px;
     width: 72px; height: 72px;
 }
+
+.icon-sun { position: absolute; top: 2px; right: 6px; }
+
+.sun-core {
+    width: 28px; height: 28px;
+    background: radial-gradient(circle, #ffe066, #ff9f43);
+    border-radius: 50%;
+    box-shadow: 0 0 18px rgba(255,210,0,0.5);
+    animation: sunPulse 3s ease-in-out infinite;
+}
+@keyframes sunPulse {
+    0%,100% { box-shadow: 0 0 18px rgba(255,210,0,0.5); transform:scale(1); }
+    50%      { box-shadow: 0 0 32px rgba(255,210,0,0.8); transform:scale(1.07); }
+}
+
+.sun-rays {
+    position: absolute; top:50%; left:50%;
+    transform: translate(-50%,-50%);
+    animation: sunSpin 12s linear infinite;
+}
+.sun-rays span {
+    display:block; width:2px; height:9px;
+    background:#ffe066; border-radius:2px;
+    position:absolute; top:-21px; left:-1px;
+    transform-origin: 1px 21px; opacity:0.75;
+}
+.sun-rays span:nth-child(1){transform:rotate(0deg)}
+.sun-rays span:nth-child(2){transform:rotate(45deg)}
+.sun-rays span:nth-child(3){transform:rotate(90deg)}
+.sun-rays span:nth-child(4){transform:rotate(135deg)}
+.sun-rays span:nth-child(5){transform:rotate(180deg)}
+.sun-rays span:nth-child(6){transform:rotate(225deg)}
+.sun-rays span:nth-child(7){transform:rotate(270deg)}
+.sun-rays span:nth-child(8){transform:rotate(315deg)}
+@keyframes sunSpin { to { transform: translate(-50%,-50%) rotate(360deg); } }
