@@ -398,3 +398,23 @@ body {
 }
 .metric-value { font-size:1.15rem; font-weight:800; }
 
+@keyframes slideDown {
+    from { opacity:0; transform:translateY(-14px); }
+    to   { opacity:1; transform:translateY(0); }
+}
+@keyframes fadeUp {
+    from { opacity:0; transform:translateY(18px); }
+    to   { opacity:1; transform:translateY(0); }
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media (max-width:600px) {
+    body { padding:14px 12px 32px; }
+    .hero-stats { gap:24px; }
+    .stat-value { font-size:3.2rem; }
+    .weather-icon-wrap { width:56px; height:56px; top:18px; right:14px; }
+    .sun-core { width:22px; height:22px; }
+    .main-header { flex-wrap:wrap; gap:10px; }
+}
