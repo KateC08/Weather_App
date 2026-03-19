@@ -3,65 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Application</title>
+    <title>UniWeather — Uniform Drying Station</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
-<div class="dashboard-wrapper">
-    <header class="app-header">
-        <div class="location">
-            <i data-lucide="map-pin"></i>
-            <span>Manolo Fortich, Northern Mindanao</span>
+<div class="wrap">
+
+    <header class="header">
+        <div class="header-left">
+            <div class="location"><i data-lucide="map-pin" class="icon-xs"></i><span>Manolo Fortich, Northern Mindanao</span></div>
+            <div id="date-display" class="date-txt"></div>
         </div>
-        <div id="date-display">Thursday, March 19</div>
+        <div class="live-badge"><span class="pulse-dot"></span>Live</div>
     </header>
 
-    <main class="bento-grid">
-        <div class="card hero-card" id="temp-card">
-            <div class="card-label">Current Temperature</div>
-            <div class="main-display">
-    <div class="temp-row">
-        <span class="value" id="temp">--</span><span class="unit">°C</span>
-    </div>
-    <div class="feels-like-badge">
-        Feels like <span id="feels-like">--</span>°C
-    </div>
-</div>
-            <div class="weather-desc" id="temp-desc">Fetching data...</div>
-            <hr>
-            <div class="quick-stats">
-                <span><i data-lucide="thermometer"></i> Sensor: DHT11</span>
-                <span><i data-lucide="zap"></i> Mode: Live</span>
+    <!-- ROW 1: Score card + Temp+Humidity card -->
+    <div class="row row-1">
+
+        <div class="card score-card">
+            <div class="score-head">
+                <div class="ring-wrap">
+                    <svg class="ring-svg" viewBox="0 0 80 80">
+                        <circle class="ring-bg" cx="40" cy="40" r="33"/>
+                        <circle class="ring-fg" id="ring-fill" cx="40" cy="40" r="33"
+                            stroke-dasharray="207.3" stroke-dashoffset="207.3"/>
+                    </svg>
+                    <div class="ring-inner">
+                        <span class="ring-num" id="score-num">--</span>
+                        <span class="ring-sub">/100</span>
+                    </div>
+                </div>
+                <div class="score-text">
+                    <div class="score-verdict" id="score-title">Calculating...</div>
+                    <div class="score-desc" id="score-sub">Waiting for sensor data</div>
+                </div>
+            </div>
+
+            <div class="window-pill" id="window-box">
+                <i data-lucide="clock" class="icon-xs"></i>
+                <span id="window-text">Calculating drying window...</span>
+            </div>
+
+            <div class="chips-row">
+                <div class="chip">
+                    <span class="chip-lbl">Temp</span>
+                    <span class="chip-val" id="f-temp">--</span>
+                    <span class="chip-tag" id="ft-temp">—</span>
+                </div>
+                <div class="chip">
+                    <span class="chip-lbl">Humidity</span>
+                    <span class="chip-val" id="f-hum">--</span>
+                    <span class="chip-tag" id="ft-hum">—</span>
+                </div>
+                <div class="chip">
+                    <span class="chip-lbl">Heat Index</span>
+                    <span class="chip-val" id="f-hi">--</span>
+                    <span class="chip-tag" id="ft-hi">—</span>
+                </div>
+                <div class="chip">
+                    <span class="chip-lbl">Est. Dry</span>
+                    <span class="chip-val" id="f-dry">--</span>
+                    <span class="chip-tag" id="ft-dry">—</span>
+                </div>
             </div>
         </div>
 
-        <div class="card insight-card" id="hum-card">
-            <div class="card-label">Humidity</div>
-            <div class="value-small"><span id="hum">--</span>%</div>
-            <div class="status-bar"><div class="progress" id="hum-progress"></div></div>
-            <p class="recommendation" id="hum-advice">Waiting for update...</p>
+        <div class="card weather-card">
+            <div class="weather-top">
+                <div class="wt-left">
+                    <div class="sect-label">Temperature</div>
+                    <div class="temp-num"><span id="temp">--</span><span class="temp-unit">°C</span></div>
+                    <div class="feels-badge">Feels like <b id="feels-like">--</b> °C</div>
+                    <div class="temp-cond" id="temp-desc">Fetching data...</div>
+                </div>
+                <div class="wt-right">
+                    <div class="sect-label">Humidity</div>
+                    <div class="hum-num"><span id="hum">--</span><span class="hum-unit">%</span></div>
+                    <div class="prog-track">
+                        <div class="prog-fill" id="hum-progress" style="width:0%"></div>
+                    </div>
+                    <div class="prog-zones"><span>Dry</span><span>Ideal</span><span>Humid</span></div>
+                    <p class="hum-note" id="hum-advice">Waiting...</p>
+                </div>
+            </div>
+            <div class="weather-bottom">
+                <div class="meta-row">
+                    <span class="meta-item"><i data-lucide="thermometer" class="icon-xs"></i>DHT11 Sensor</span>
+                    <span class="meta-item"><i data-lucide="zap" class="icon-xs"></i>Live Mode</span>
+                    <span class="meta-item" id="safety-mini"><i data-lucide="activity" class="icon-xs"></i><span id="safety-msg-mini">Stable</span></span>
+                </div>
+            </div>
         </div>
 
-        <div class="card safety-card">
-            <div class="card-label">Environment Insight</div>
-            <div id="safety-icon"><i data-lucide="activity"></i></div>
-            <div class="safety-text" id="safety-msg">Analyzing conditions...</div>
-        </div>
-    </main>
+    </div>
 
-    <footer class="last-updated">
-        <span class="update-dot"></span> <span id="time">Last update: --</span>
+    <!-- ROW 2: Laundry (wide) + Insight (narrow) -->
+    <div class="row row-2">
+
+        <div class="card laundry-card">
+            <div class="laundry-grid">
+                <div class="laundry-left">
+                    <div class="uniform-badge"><i data-lucide="shirt" class="icon-xs"></i> Uniform Check</div>
+                    <div class="dry-status" id="laundry-status">--</div>
+                    <p class="dry-advice" id="laundry-advice">Fetching sensor data...</p>
+                </div>
+                <div class="laundry-mid">
+                    <div class="tip-box">
+                        <i data-lucide="lightbulb" class="icon-xs tip-icon"></i>
+                        <span id="tip-text">Checking conditions...</span>
+                    </div>
+                </div>
+                <div class="laundry-right">
+                    <div class="sun-block">
+                        <div class="sun-item"><i data-lucide="sunrise" class="icon-xs"></i><div><span class="sun-lbl">Sunrise</span><span class="sun-val">5:52 AM</span></div></div>
+                        <div class="sun-item"><i data-lucide="sunset" class="icon-xs"></i><div><span class="sun-lbl">Sunset</span><span class="sun-val">6:14 PM</span></div></div>
+                        <div class="sun-item"><i data-lucide="timer" class="icon-xs"></i><div><span class="sun-lbl">Remaining</span><span class="sun-val" id="mins-left-text">--</span></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card insight-card">
+            <div class="sect-label">Environment</div>
+            <div class="insight-body">
+                <div class="insight-icon" id="safety-icon"><i data-lucide="activity" class="icon-md"></i></div>
+                <div class="insight-txt" id="safety-msg">Analyzing conditions...</div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <span class="footer-left"><span class="upd-dot"></span><span id="time">Last update: --</span></span>
+        <span class="footer-right">Auto-refresh every 5s</span>
     </footer>
+
 </div>
 
 <script src="script.js"></script>
-<script>
-    // This line initializes the icons
-    lucide.createIcons();
-</script>
+<script>lucide.createIcons();</script>
 </body>
 </html>
