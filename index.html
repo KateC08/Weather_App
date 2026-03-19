@@ -7,120 +7,57 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
-  <div class="dashboard-container">
-    <header class="main-header">
-        <div class="location-label">
-            <span>Tankulan, Manolo Fortich, PH</span>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.45"><path d="M7 10l5 5 5-5z"/></svg>
+<div class="dashboard-wrapper">
+    <header class="app-header">
+        <div class="location">
+            <i data-lucide="map-pin"></i>
+            <span>Manolo Fortich, Northern Mindanao</span>
         </div>
-        <div class="header-right">
-            <div class="live-badge">
-                <span class="pulse-dot"></span>
-                LIVE
-            </div>
-            <div class="time-display" id="clock">--:--:-- --</div>
-        </div>
+        <div id="date-display">Thursday, March 19</div>
     </header>
 
-    <main class="grid-layout">
-
-        <!-- MAIN CARD -->
-        <section class="card weather-card">
-
-            <!-- Animated sun + cloud icon -->
-            <div class="weather-icon-wrap">
-                <div class="icon-sun">
-                    <div class="sun-core"></div>
-                    <div class="sun-rays">
-                        <span></span><span></span><span></span><span></span>
-                        <span></span><span></span><span></span><span></span>
-                    </div>
-                </div>
-                <div class="icon-clouds">
-                    <div class="cloud cloud-back"></div>
-                    <div class="cloud cloud-front"></div>
-                </div>
+    <main class="bento-grid">
+        <div class="card hero-card" id="temp-card">
+            <div class="card-label">Current Temperature</div>
+            <div class="main-display">
+                <span class="value" id="temp">--</span><span class="unit">°C</span>
+                <div class="feels-like">Feels like <span id="feels-like">--</span>°C</div>
             </div>
-
-            <p class="card-title">Current conditions</p>
-
-            <!-- CENTERED HERO -->
-            <div class="hero-stats">
-                <div class="stat-block">
-                    <div class="stat-emoji">🌡️</div>
-                    <div class="stat-value temp-color" id="tempDisplay">33.9°C</div>
-                    <div class="stat-name">Temperature</div>
-                    <div class="stat-trend trend-up">↑ rising</div>
-                </div>
-
-                <div class="stat-sep">
-                    <div class="sep-line"></div>
-                    <div class="sep-dot"></div>
-                    <div class="sep-line"></div>
-                </div>
-
-                <div class="stat-block">
-                    <div class="stat-emoji">💧</div>
-                    <div class="stat-value humid-color" id="humDisplay">72.1%</div>
-                    <div class="stat-name">Humidity</div>
-                    <div class="stat-trend trend-down">↓ dropping</div>
-                </div>
+            <div class="weather-desc" id="temp-desc">Fetching data...</div>
+            <hr>
+            <div class="quick-stats">
+                <span><i data-lucide="thermometer"></i> Sensor: DHT11</span>
+                <span><i data-lucide="zap"></i> Mode: Live</span>
             </div>
+        </div>
 
-            <!-- Condition -->
-            <div class="condition-area">
-                <div class="condition-row">
-                    <span class="condition-label" id="conditionText">Warm &amp; Humid</span>
-                    <span class="condition-badge" id="conditionBadge">🥵 Uncomfortable</span>
-                </div>
-                <p class="feels-line">
-                    Feels like <strong id="feelsLike">47.5°C</strong>
-                    &nbsp;·&nbsp;
-                    Dew point <strong id="dewPoint">28.2°C</strong>
-                </p>
-                <div class="info-box">
-                    <span class="info-icon">💬</span>
-                    <span id="infoText">Moderate to high humidity at 72.1%. The air contains significant moisture. Perceived temperature is elevated due to humidity.</span>
-                </div>
-            </div>
+        <div class="card insight-card" id="hum-card">
+            <div class="card-label">Humidity</div>
+            <div class="value-small"><span id="hum">--</span>%</div>
+            <div class="status-bar"><div class="progress" id="hum-progress"></div></div>
+            <p class="recommendation" id="hum-advice">Waiting for update...</p>
+        </div>
 
-            <!-- Humidity bar -->
-            <div class="hum-bar-row">
-                <span class="hum-bar-lbl">💧 Humidity level</span>
-                <div class="hum-track">
-                    <div class="hum-fill" id="humBar" style="width:72.1%"></div>
-                </div>
-                <span class="hum-pct" id="humBarPct">72.1%</span>
-            </div>
-        </section>
-
-        <!-- DAILY SUMMARY -->
-        <section class="card summary-card">
-            <p class="card-title">Daily Summary</p>
-             <div class="summary-grid">
-                    <div class="summary-item">
-                        <small>High today</small>
-                        <div class="val temp-color">34.2°C</div>
-                    </div>
-                    <div class="summary-item">
-                        <small>Low today</small>
-                        <div class="val humid-color">31.8°C</div>
-                    </div>
-                    <div class="summary-item">
-                        <small>Avg Humidity</small>
-                        <div class="val avg-color">74%</div>
-                    </div>
-                    <div class="summary-item">
-                        <small>Sensor Uptime</small>
-                        <div class="val">1h 39m</div>
-                    </div>
-            </div>
-        </section>     
+        <div class="card safety-card">
+            <div class="card-label">Environment Insight</div>
+            <div id="safety-icon"><i data-lucide="activity"></i></div>
+            <div class="safety-text" id="safety-msg">Analyzing conditions...</div>
+        </div>
     </main>
-   </div>
-  <script src="script.js"></script>
+
+    <footer class="last-updated">
+        <span class="update-dot"></span> <span id="time">Last update: --</span>
+    </footer>
+</div>
+
+<script src="script.js"></script>
+<script>
+    // This line initializes the icons
+    lucide.createIcons();
+</script>
 </body>
 </html>
