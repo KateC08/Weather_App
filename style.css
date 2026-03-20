@@ -309,6 +309,64 @@ body {
     font-size: 0.78rem; color: var(--txt-dim);
 }
 
+/* Jolly Vibe Hero Card */
+.vibe-hero-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    background: linear-gradient(145deg, var(--card), var(--card-alt));
+}
+
+.vibe-hero-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    gap: 15px;
+}
+
+.vibe-icon-big {
+    filter: drop-shadow(0 0 15px rgba(255, 193, 7, 0.2));
+    transition: transform 0.3s ease;
+}
+
+.vibe-icon-big:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.vibe-status-title {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--txt);
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+}
+
+.vibe-status-note {
+    font-size: 0.9rem;
+    color: var(--txt-mid);
+    line-height: 1.5;
+    max-width: 240px;
+    margin: 0 auto;
+}
+
+/* Adjust Row 1 to make cards equal height */
+.row-1 {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Equal split for balance */
+    gap: 14px;
+}
+
+/* Make sure Lucide icons in the footer stay neat */
+.weather-bottom .meta-row {
+    justify-content: center;
+    border-top: 1px solid var(--border);
+    padding-top: 15px;
+}
+
 /* ── WEATHER EXTRA CARDS (UV, Wind, Rain) ── */
 .weather-extra-card {
     display: flex;
@@ -571,47 +629,6 @@ body {
     background: var(--green-dim);
     border-color: rgba(74,222,128,0.3);
     color: var(--green);
-}
-
-.vibe-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px 0;
-    gap: 15px;
-    flex: 1;
-}
-
-.vibe-icon {
-    width: 70px;
-    height: 70px;
-    stroke-width: 1.5;
-}
-
-.color-green { color: var(--green); filter: drop-shadow(0 0 8px var(--green-dim)); }
-.color-accent { color: var(--accent); filter: drop-shadow(0 0 8px var(--accent-dim)); }
-.color-red { color: var(--red); filter: drop-shadow(0 0 8px var(--red-dim)); }
-.color-blue { color: var(--blue); filter: drop-shadow(0 0 8px var(--blue-dim)); }
-
-#vibe-title {
-    font-size: 1.6rem;
-    font-weight: 900;
-    margin-bottom: 4px;
-    letter-spacing: -0.5px;
-}
-
-#vibe-text {
-    font-size: 0.9rem;
-    color: var(--txt-mid);
-    line-height: 1.4;
-    max-width: 200px;
-}
-
-.vibe-card {
-    transition: border 0.4s ease;
-    min-height: 280px; /* Ensures balance with the left card */
 }
 
 /* ── FOOTER ── */
