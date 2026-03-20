@@ -67,11 +67,70 @@ body {
     animation: pulse 2s infinite;
 }
 
+/* ── FABRIC SELECTOR ── */
+.fabric-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.fabric-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--txt-dim);
+    white-space: nowrap;
+}
+
+.fabric-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.fab-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 13px;
+    font-size: 0.76rem;
+    font-family: 'Outfit', sans-serif;
+    color: var(--txt-dim);
+    cursor: pointer;
+    transition: all 0.18s ease;
+}
+
+.fab-pill:hover {
+    border-color: rgba(255,255,255,0.18);
+    color: var(--txt-mid);
+}
+
+.fab-pill.active {
+    background: var(--green-dim);
+    border-color: rgba(74,222,128,0.35);
+    color: var(--green);
+    font-weight: 600;
+}
+
 /* ── ROWS ── */
 .row { display: grid; gap: 14px; margin-bottom: 14px; }
 
 .row-1 { grid-template-columns: 1fr 1.1fr; }
 .row-2 { grid-template-columns: 1.8fr 1fr; }
+
+/* New row for UV/Wind/Rain */
+.row-weather3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+}
 
 /* ── CARD BASE ── */
 .card {
@@ -82,15 +141,44 @@ body {
     animation: fadeUp 0.45s ease both;
 }
 
+.card-sm { padding: 16px 18px; }
+
 .sect-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     font-size: 0.68rem; font-weight: 700;
     letter-spacing: 0.1em; text-transform: uppercase;
     color: var(--txt-dim); margin-bottom: 10px;
 }
 
+/* ── RAIN STRIP ── */
+.rain-strip {
+    border-radius: var(--r-sm);
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.rain-strip.warn {
+    background: rgba(251,146,60,0.12);
+    border: 1px solid rgba(251,146,60,0.25);
+    color: var(--orange);
+}
+
+.rain-strip.safe {
+    background: var(--green-dim);
+    border: 1px solid rgba(74,222,128,0.2);
+    color: var(--green);
+}
+
 /* ── SCORE CARD ── */
 .score-card {
-    display: flex; flex-direction: column; gap: 18px;
+    display: flex; flex-direction: column; gap: 14px;
     background: var(--card-alt);
 }
 
@@ -140,6 +228,7 @@ body {
 
 .chip-lbl { font-size: 0.67rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--txt-dim); }
 .chip-val { font-size: 1.15rem; font-weight: 700; line-height: 1; }
+.chip-val-big { font-size: 1.3rem; }
 
 .chip-tag {
     font-size: 0.69rem; font-weight: 600;
@@ -220,6 +309,126 @@ body {
     font-size: 0.78rem; color: var(--txt-dim);
 }
 
+/* ── WEATHER EXTRA CARDS (UV, Wind, Rain) ── */
+.weather-extra-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.extra-num {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+    margin: 4px 0 2px;
+}
+
+.extra-unit {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--txt-mid);
+}
+
+.extra-lbl {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--txt-mid);
+    margin-bottom: 6px;
+}
+
+.mini-bar-track {
+    height: 5px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 4px 0 6px;
+}
+
+.mini-bar-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 1s ease;
+}
+
+.extra-hint {
+    font-size: 0.7rem;
+    color: var(--txt-dim);
+}
+
+/* ── TIMELINE CARD ── */
+.timeline-card {
+    margin-bottom: 14px;
+}
+
+.timeline-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.timeline-slots {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 70px;
+}
+
+.tl-slot {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    height: 100%;
+    justify-content: flex-end;
+}
+
+.tl-bar {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    transition: height 0.8s ease;
+    min-height: 4px;
+}
+
+.tl-bar.is-now {
+    outline: 2px solid var(--green);
+    outline-offset: 1px;
+}
+
+.tl-time {
+    font-size: 0.62rem;
+    color: var(--txt-dim);
+    white-space: nowrap;
+}
+
+.tl-time.now { color: var(--green); font-weight: 700; }
+
+.tl-rain-icon {
+    font-size: 0.65rem;
+    line-height: 1;
+}
+
+.timeline-legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.tl-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.7rem;
+    color: var(--txt-dim);
+}
+
+.tl-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
 /* ── LAUNDRY CARD ── */
 .laundry-card { background: linear-gradient(135deg, #0c1e30, #080f1a); border-color: rgba(56,189,248,0.12); }
 
@@ -267,7 +476,7 @@ body {
 /* ── INSIGHT CARD ── */
 .insight-card { display: flex; flex-direction: column; gap: 14px; }
 
-.insight-body { display: flex; align-items: center; gap: 12px; flex: 1; }
+.insight-body { display: flex; align-items: center; gap: 12px; }
 
 .insight-icon {
     width: 44px; height: 44px; flex-shrink: 0;
@@ -283,6 +492,126 @@ body {
     font-size: 0.88rem; font-weight: 600;
     color: var(--green); line-height: 1.5;
     transition: color 0.4s;
+}
+
+/* ── SPARKLINE ── */
+.sparkline-label {
+    font-size: 0.67rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--txt-dim);
+    margin-top: 4px;
+}
+
+.sparkline-wrap {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 44px;
+    margin-top: 6px;
+}
+
+.spark-bar {
+    flex: 1;
+    border-radius: 3px;
+    transition: height 0.6s ease, background 0.4s;
+    min-height: 3px;
+}
+
+/* ── NOTIFICATION BAR ── */
+.notif-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    background: var(--card);
+    border: 1px solid rgba(56,189,248,0.15);
+    border-radius: var(--r-sm);
+    padding: 14px 18px;
+    margin-bottom: 14px;
+}
+
+.notif-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.notif-left i { color: var(--blue); flex-shrink: 0; }
+
+.notif-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--txt);
+}
+
+.notif-sub {
+    font-size: 0.75rem;
+    color: var(--txt-dim);
+    margin-top: 2px;
+}
+
+.notif-btn {
+    background: var(--blue-dim);
+    border: 1px solid rgba(56,189,248,0.3);
+    border-radius: 8px;
+    color: var(--blue);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 7px 18px;
+    cursor: pointer;
+    transition: all 0.18s;
+    white-space: nowrap;
+}
+
+.notif-btn:hover { background: rgba(56,189,248,0.2); }
+.notif-btn.enabled {
+    background: var(--green-dim);
+    border-color: rgba(74,222,128,0.3);
+    color: var(--green);
+}
+
+.vibe-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px 0;
+    gap: 15px;
+    flex: 1;
+}
+
+.vibe-icon {
+    width: 70px;
+    height: 70px;
+    stroke-width: 1.5;
+}
+
+.color-green { color: var(--green); filter: drop-shadow(0 0 8px var(--green-dim)); }
+.color-accent { color: var(--accent); filter: drop-shadow(0 0 8px var(--accent-dim)); }
+.color-red { color: var(--red); filter: drop-shadow(0 0 8px var(--red-dim)); }
+.color-blue { color: var(--blue); filter: drop-shadow(0 0 8px var(--blue-dim)); }
+
+#vibe-title {
+    font-size: 1.6rem;
+    font-weight: 900;
+    margin-bottom: 4px;
+    letter-spacing: -0.5px;
+}
+
+#vibe-text {
+    font-size: 0.9rem;
+    color: var(--txt-mid);
+    line-height: 1.4;
+    max-width: 200px;
+}
+
+.vibe-card {
+    transition: border 0.4s ease;
+    min-height: 280px; /* Ensures balance with the left card */
 }
 
 /* ── FOOTER ── */
@@ -316,14 +645,19 @@ body {
     to   { opacity: 1; transform: translateY(0); }
 }
 
-.row-1 .score-card  { animation-delay: 0.05s; }
+.row-1 .score-card   { animation-delay: 0.05s; }
 .row-1 .weather-card { animation-delay: 0.10s; }
-.row-2 .laundry-card { animation-delay: 0.15s; }
-.row-2 .insight-card { animation-delay: 0.20s; }
+.row-weather3 .weather-extra-card:nth-child(1) { animation-delay: 0.12s; }
+.row-weather3 .weather-extra-card:nth-child(2) { animation-delay: 0.15s; }
+.row-weather3 .weather-extra-card:nth-child(3) { animation-delay: 0.18s; }
+.timeline-card { animation-delay: 0.20s; }
+.row-2 .laundry-card { animation-delay: 0.22s; }
+.row-2 .insight-card { animation-delay: 0.25s; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 720px) {
     .row-1, .row-2 { grid-template-columns: 1fr; }
+    .row-weather3 { grid-template-columns: 1fr 1fr; }
     .weather-top { grid-template-columns: 1fr; gap: 20px; }
     .laundry-grid { grid-template-columns: 1fr; gap: 16px; }
     .temp-num { font-size: 3.5rem; }
@@ -333,4 +667,6 @@ body {
     body { padding: 14px 12px 28px; }
     .card { padding: 18px; }
     .chips-row { grid-template-columns: 1fr 1fr; }
+    .row-weather3 { grid-template-columns: 1fr; }
+    .fabric-bar { flex-direction: column; align-items: flex-start; }
 }
