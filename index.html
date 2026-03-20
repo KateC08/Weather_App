@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UniWeather — Uniform Drying Station</title>
+    <title>Weather Application</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -15,13 +15,35 @@
 
     <header class="header">
         <div class="header-left">
-            <div class="location"><i data-lucide="map-pin" class="icon-xs"></i><span>Manolo Fortich, Northern Mindanao</span></div>
+            <div class="location"><i data-lucide="map-pin" class="icon-xs"></i><span id="location-name">Detecting location...</span></div>
             <div id="date-display" class="date-txt"></div>
         </div>
         <div class="live-badge"><span class="pulse-dot"></span>Live</div>
     </header>
 
-    <!-- ROW 1: Score card + Temp+Humidity card -->
+    <!-- FABRIC SELECTOR -->
+    <div class="fabric-bar">
+        <span class="fabric-label">Uniform type:</span>
+        <div class="fabric-pills" id="fabric-pills">
+            <button class="fab-pill active" data-key="polo" onclick="selectFabric(this)">
+                <i data-lucide="shirt" class="icon-xs"></i> Polo / Shirt
+            </button>
+            <button class="fab-pill" data-key="pe" onclick="selectFabric(this)">
+                <i data-lucide="zap" class="icon-xs"></i> PE Uniform
+            </button>
+            <button class="fab-pill" data-key="pants" onclick="selectFabric(this)">
+                <i data-lucide="layers" class="icon-xs"></i> Pants / Slacks
+            </button>
+            <button class="fab-pill" data-key="socks" onclick="selectFabric(this)">
+                <i data-lucide="minus" class="icon-xs"></i> Socks
+            </button>
+            <button class="fab-pill" data-key="dress" onclick="selectFabric(this)">
+                <i data-lucide="sparkles" class="icon-xs"></i> Dress / Skirt
+            </button>
+        </div>
+    </div>
+
+    <!-- ROW 1: Score card + Vibe card -->
     <div class="row row-1">
 
         <div class="card score-card">
@@ -42,6 +64,8 @@
                     <div class="score-desc" id="score-sub">Waiting for sensor data</div>
                 </div>
             </div>
+
+            <div class="rain-strip" id="rain-strip" style="display:none"></div>
 
             <div class="window-pill" id="window-box">
                 <i data-lucide="clock" class="icon-xs"></i>
@@ -65,43 +89,80 @@
                     <span class="chip-tag" id="ft-hi">—</span>
                 </div>
                 <div class="chip">
-                    <span class="chip-lbl">Est. Dry</span>
-                    <span class="chip-val" id="f-dry">--</span>
+                    <span class="chip-val chip-val-big" id="f-dry">--</span>
+                    <span class="chip-lbl" id="f-dry-label">Est. Dry</span>
                     <span class="chip-tag" id="ft-dry">—</span>
                 </div>
             </div>
         </div>
 
-        <div class="card weather-card">
-            <div class="weather-top">
-                <div class="wt-left">
-                    <div class="sect-label">Temperature</div>
-                    <div class="temp-num"><span id="temp">--</span><span class="temp-unit">°C</span></div>
-                    <div class="feels-badge">Feels like <b id="feels-like">--</b> °C</div>
-                    <div class="temp-cond" id="temp-desc">Fetching data...</div>
+        <div class="card weather-card vibe-hero-card">
+            <div class="sect-label">Laundry Vibe</div>
+            <div class="vibe-hero-container">
+                <div class="vibe-icon-big" id="vibe-icon-wrap">
+                    <i data-lucide="sun" style="color:var(--accent); width:80px; height:80px;"></i>
                 </div>
-                <div class="wt-right">
-                    <div class="sect-label">Humidity</div>
-                    <div class="hum-num"><span id="hum">--</span><span class="hum-unit">%</span></div>
-                    <div class="prog-track">
-                        <div class="prog-fill" id="hum-progress" style="width:0%"></div>
-                    </div>
-                    <div class="prog-zones"><span>Dry</span><span>Ideal</span><span>Humid</span></div>
-                    <p class="hum-note" id="hum-advice">Waiting...</p>
+                <div class="vibe-main-content">
+                    <h2 class="vibe-status-title" id="vibe-title">Checking vibe...</h2>
+                    <p class="vibe-status-note" id="vibe-text">Waiting for sensor data</p>
                 </div>
             </div>
             <div class="weather-bottom">
                 <div class="meta-row">
-                    <span class="meta-item"><i data-lucide="thermometer" class="icon-xs"></i>DHT11 Sensor</span>
-                    <span class="meta-item"><i data-lucide="zap" class="icon-xs"></i>Live Mode</span>
-                    <span class="meta-item" id="safety-mini"><i data-lucide="activity" class="icon-xs"></i><span id="safety-msg-mini">Stable</span></span>
+                    <span class="meta-item"><i data-lucide="thermometer" class="icon-xs"></i> <span id="temp-desc">--</span></span>
+                    <span class="meta-item"><i data-lucide="droplets" class="icon-xs"></i> <span id="hum-advice">--</span></span>
+                    <span class="meta-item"><i data-lucide="activity" class="icon-xs"></i> <span id="safety-msg-mini">Stable</span></span>
                 </div>
             </div>
+            <!-- Hidden fields for JS -->
+            <span id="temp" style="display:none"></span>
+            <span id="feels-like" style="display:none"></span>
+            <span id="hum" style="display:none"></span>
+            <div id="hum-progress" style="display:none"></div>
         </div>
 
     </div>
 
-    <!-- ROW 2: Laundry (wide) + Insight (narrow) -->
+    <!-- ROW 1B: UV + Wind + Rain -->
+    <div class="row row-weather3">
+        <div class="card card-sm weather-extra-card" id="uv-card">
+            <div class="sect-label"><i data-lucide="sun" class="icon-xs"></i> UV Index</div>
+            <div class="extra-num" id="uv-num">--</div>
+            <div class="extra-lbl" id="uv-lbl">Fetching...</div>
+            <div class="mini-bar-track"><div class="mini-bar-fill" id="uv-bar" style="width:0%;background:var(--accent)"></div></div>
+            <div class="extra-hint" id="uv-hint">UV accelerates evaporation</div>
+        </div>
+        <div class="card card-sm weather-extra-card" id="wind-card">
+            <div class="sect-label"><i data-lucide="wind" class="icon-xs"></i> Wind Speed</div>
+            <div class="extra-num" id="wind-num">-- <span class="extra-unit">km/h</span></div>
+            <div class="extra-lbl" id="wind-lbl">Fetching...</div>
+            <div class="mini-bar-track"><div class="mini-bar-fill" id="wind-bar" style="width:0%;background:var(--blue)"></div></div>
+            <div class="extra-hint" id="wind-hint">Wind reduces drying time</div>
+        </div>
+        <div class="card card-sm weather-extra-card" id="rain-card">
+            <div class="sect-label"><i data-lucide="cloud-rain" class="icon-xs"></i> Rain Forecast</div>
+            <div class="extra-num" id="rain-prob">--%</div>
+            <div class="extra-lbl" id="rain-lbl">Fetching...</div>
+            <div class="mini-bar-track"><div class="mini-bar-fill" id="rain-bar" style="width:0%;background:var(--blue)"></div></div>
+            <div class="extra-hint" id="rain-hint">Based on next 3 hours</div>
+        </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="card timeline-card">
+        <div class="sect-label"><i data-lucide="bar-chart-2" class="icon-xs"></i> Today's drying window</div>
+        <div class="timeline-wrap" id="timeline-wrap">
+            <div class="timeline-slots" id="timeline-slots"></div>
+            <div class="timeline-legend">
+                <span class="tl-legend-item"><span class="tl-dot" style="background:var(--green)"></span>Excellent</span>
+                <span class="tl-legend-item"><span class="tl-dot" style="background:var(--accent)"></span>Good</span>
+                <span class="tl-legend-item"><span class="tl-dot" style="background:var(--txt-dim)"></span>Poor</span>
+                <span class="tl-legend-item"><span class="tl-dot" style="background:var(--blue)"></span>Rain likely</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ROW 3: Laundry + Insight -->
     <div class="row row-2">
 
         <div class="card laundry-card">
@@ -109,6 +170,7 @@
                 <div class="laundry-left">
                     <div class="uniform-badge"><i data-lucide="shirt" class="icon-xs"></i> Uniform Check</div>
                     <div class="dry-status" id="laundry-status">--</div>
+                    <div id="best-time" style="font-size:0.75rem;color:#38bdf8;margin-top:6px;"></div>
                     <p class="dry-advice" id="laundry-advice">Fetching sensor data...</p>
                 </div>
                 <div class="laundry-mid">
@@ -133,8 +195,45 @@
                 <div class="insight-icon" id="safety-icon"><i data-lucide="activity" class="icon-md"></i></div>
                 <div class="insight-txt" id="safety-msg">Analyzing conditions...</div>
             </div>
+            <div class="sparkline-label">Score history (last 8 readings)</div>
+            <div class="sparkline-wrap" id="sparkline-wrap"></div>
         </div>
 
+    </div>
+
+    <!-- Notification bar -->
+    <div class="notif-bar" id="notif-bar">
+        <div class="notif-left">
+            <i data-lucide="bell" class="icon-sm"></i>
+            <div>
+                <div class="notif-title">Smart Reminder</div>
+                <div class="notif-sub" id="notif-sub">Get notified when clothes are dry or rain is approaching</div>
+            </div>
+        </div>
+        <button class="notif-btn" id="notif-btn" onclick="requestNotification()">Enable</button>
+    </div>
+
+    <!-- CSV Download bar -->
+    <div class="csv-bar">
+        <div class="csv-left">
+            <i data-lucide="download" class="icon-sm"></i>
+            <div>
+                <div class="csv-title">Export Sensor Data</div>
+                <div class="csv-sub" id="csv-sub">Download your weather readings as a CSV file</div>
+            </div>
+        </div>
+        <div class="csv-controls">
+            <select class="csv-select" id="csv-limit">
+                <option value="50">Last 50 rows</option>
+                <option value="100" selected>Last 100 rows</option>
+                <option value="500">Last 500 rows</option>
+                <option value="1000">Last 1000 rows</option>
+                <option value="0">All data</option>
+            </select>
+            <button class="csv-btn" id="csv-btn" onclick="downloadCSV()">
+                <i data-lucide="download" class="icon-xs"></i> Download CSV
+            </button>
+        </div>
     </div>
 
     <footer class="footer">

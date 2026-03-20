@@ -124,7 +124,6 @@ body {
 .row-1 { grid-template-columns: 1fr 1.1fr; }
 .row-2 { grid-template-columns: 1.8fr 1fr; }
 
-/* New row for UV/Wind/Rain */
 .row-weather3 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -353,14 +352,12 @@ body {
     margin: 0 auto;
 }
 
-/* Adjust Row 1 to make cards equal height */
 .row-1 {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Equal split for balance */
+    grid-template-columns: 1fr 1fr;
     gap: 14px;
 }
 
-/* Make sure Lucide icons in the footer stay neat */
 .weather-bottom .meta-row {
     justify-content: center;
     border-top: 1px solid var(--border);
@@ -414,9 +411,7 @@ body {
 }
 
 /* ── TIMELINE CARD ── */
-.timeline-card {
-    margin-bottom: 14px;
-}
+.timeline-card { margin-bottom: 14px; }
 
 .timeline-wrap {
     display: flex;
@@ -461,10 +456,7 @@ body {
 
 .tl-time.now { color: var(--green); font-weight: 700; }
 
-.tl-rain-icon {
-    font-size: 0.65rem;
-    line-height: 1;
-}
+.tl-rain-icon { font-size: 0.65rem; line-height: 1; }
 
 .timeline-legend {
     display: flex;
@@ -686,4 +678,84 @@ body {
     .chips-row { grid-template-columns: 1fr 1fr; }
     .row-weather3 { grid-template-columns: 1fr; }
     .fabric-bar { flex-direction: column; align-items: flex-start; }
+}
+
+/* ── CSV DOWNLOAD BAR ── */
+.csv-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    background: var(--card);
+    border: 1px solid rgba(74,222,128,0.15);
+    border-radius: var(--r-sm);
+    padding: 14px 18px;
+    margin-bottom: 14px;
+}
+
+.csv-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.csv-left i { color: var(--green); flex-shrink: 0; }
+
+.csv-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--txt);
+}
+
+.csv-sub {
+    font-size: 0.75rem;
+    color: var(--txt-dim);
+    margin-top: 2px;
+}
+
+.csv-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.csv-select {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--txt-mid);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    padding: 6px 10px;
+    cursor: pointer;
+    outline: none;
+}
+
+.csv-select:focus { border-color: rgba(74,222,128,0.4); }
+
+.csv-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--green-dim);
+    border: 1px solid rgba(74,222,128,0.3);
+    border-radius: 8px;
+    color: var(--green);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 7px 16px;
+    cursor: pointer;
+    transition: all 0.18s;
+    white-space: nowrap;
+}
+
+.csv-btn:hover { background: rgba(74,222,128,0.2); }
+.csv-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+@media (max-width: 480px) {
+    .csv-bar { flex-direction: column; align-items: flex-start; }
+    .csv-controls { width: 100%; justify-content: space-between; }
+    .csv-select { flex: 1; }
 }
